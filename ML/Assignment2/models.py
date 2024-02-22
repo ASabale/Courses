@@ -15,11 +15,19 @@ class LDAModel:
         for c in classes:
             class_data = X[y == c]
 
-            mean = np.mean(class_data, axis=0)
+            # Calculate class mean manually
+            mean = np.sum(class_data, axis=0) / len(class_data)
             class_means.append(mean)
 
-            covariance = np.cov(class_data, rowvar=False)
+            # Calculate covariance matrix for the class manually
+            mean_diff = class_data - mean
+            covariance = (1 / len(class_data)) * (mean_diff.T @ mean_diff)
             class_covariances.append(covariance)
+
+            # covariance_manual = np.zeros((mean_diff.shape[1], mean_diff.shape[1]))
+            # for i in range(len(class_data)):
+            #     covariance_manual += np.outer(mean_diff[i], mean_diff[i])
+            # covariance_manual /= len(class_data)
 
         # Convert to numpy arrays for easier manipulation
         self.class_means = np.array(class_means)
