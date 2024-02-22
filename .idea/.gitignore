@@ -10,3 +10,7 @@
 /ML1/venv
 *.iml
 __pycache__
+ML/Assignment2/__pycache__/
+*/__pycache__/*
+*/__pycache__/
+Pip*
